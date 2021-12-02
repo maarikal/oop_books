@@ -1,22 +1,34 @@
 // võib kasutada sama nime, et samal funktsionaalsusel oleks sama nimi
 class UI {
+    // help function to add DOM element
+    addUIElement(name, classname = "", textcontent = "", atributes = {}) {
+        // create element
+        const element = document.createElement(name);
+        // add class to element
+        if(classname !== "") {
+            element.className = classname
+        }
+        // add text content to element
+        element.appendChild(document.createTextNode(textcontent))
+        // add atributes to element
+        if(Object.keys(atributes).length > 0) {
+            for (let key in atributes) {
+                element.setAttribute(key, atributes[key])
+            }
+        }
+        return element
+    }
+
+
     addBook(book) {
-        const tr = document.createElement("tr");
+        const tr = this.addUIElement("tr");
         // kasutasime for tsüklit, kuna objektil ei ole indekseid
         for(let name in book) {
-            console.log(name + " " + book[name])
-        let td = document.createElement("td");
-        let tekst = document.createTextNode(book[name]);
-        td.appendChild(tekst);
+        let td = this.addUIElement("td", "", book[name]);
         tr.appendChild(td);
-        tr.appendChild(td);
-        console.log(tr)
         }
          // loome lingitava elemendi ja lingi atribuudi
-        const link = document.createElement("a");
-        link.setAttribute("href", "#");
-        link.className = "secondary-content";
-        link.appendChild(document.createTextNode("X"));  // loome kustutamise nupu (X-i)
+        const link = this.addUIElement("a", "", "X", {"href": "#"});
         tr.appendChild(link);
         const bookInput = document.querySelector("#nimekiri")
         bookInput.appendChild(tr);
