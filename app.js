@@ -7,6 +7,7 @@ const form = document.querySelector("form");
 
 // events
 form.addEventListener("submit", addBook);
+document.addEventListener("DOMContentLoaded", getBooks);
 
 function addBook(event) {
     const titleInput = document.querySelector("#raamatuNimi");
@@ -27,4 +28,12 @@ function addBook(event) {
     authorInput.value = "";
     isbnInput.value = ""; // teeme sisetuse kastid (ehk input väljad) tühjaks pärast iga sisestust
     event.preventDefault(); // kontrollib, kas vorm Submit töötab
+}
+
+function getBooks() {
+    let books = ls.getData("books")
+    for (let i=0; i< books.length; i++) {
+        let book = books[i];
+        ui.addBook(book);
+    }
 }
